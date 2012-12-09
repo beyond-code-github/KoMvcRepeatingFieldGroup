@@ -1,0 +1,33 @@
+﻿@model KoMvcRepeatingFieldGroup.Models.Position
+
+<!-- ko foreach: positions -->
+<fieldset>
+    <span class="editor-label">
+        @Html.LabelFor(model => model.CompanyName)
+    </span>
+    <span class="editor-field">
+        @Html.TextBoxFor(model => model.CompanyName, new { data_bind = "value: companyName, namePath: true" })
+    </span>
+
+    <span class="editor-label">
+        @Html.LabelFor(model => model.JobTitle)
+    </span>
+    <span class="editor-field">
+        @Html.TextBoxFor(model => model.JobTitle, new { data_bind = "value: jobTitle, namePath: true" })
+    </span>
+
+    <span class="editor-label">
+        @Html.LabelFor(model => model.StartDate)
+    </span>
+    <span class="editor-field">
+        @Html.TextBoxFor(model => model.StartDate, new { data_bind = "value: startDate, namePath: true" })
+    </span>
+
+    <span class="editor-label">
+        @Html.LabelFor(model => model.EndDate)
+    </span>
+    <span class="editor-field">
+        @Html.TextBoxFor(model => model.EndDate, new { data_bind = "value: endDate, namePath: true" })
+    </span>
+</fieldset>
+<!-- /ko -->

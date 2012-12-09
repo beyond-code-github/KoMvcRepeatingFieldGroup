@@ -1,0 +1,76 @@
+﻿@model KoMvcRepeatingFieldGroup.Models.ApplicantViewModel
+
+@{
+    ViewBag.Title = "Add Applicant";
+    Layout = "~\\Views\\Shared\\_Layout.cshtml";
+}
+
+<h2>Add Applicant</h2>
+
+@using (Html.BeginForm())
+{
+    <fieldset>
+        <legend>Applicant Details</legend>
+        <span class="editor-label">
+            @Html.LabelFor(model => model.Firstname)
+        </span>
+        <span class="editor-field">
+            @Html.TextBoxFor(model => model.Firstname, new { data_bind = "value: firstname" })
+        </span>
+
+        <span class="editor-label">
+            @Html.LabelFor(model => model.Surname)
+        </span>
+        <span class="editor-field">
+            @Html.TextBoxFor(model => model.Surname, new { data_bind = "value: surname" })
+        </span>
+    </fieldset>
+    <fieldset>
+        <legend>Previous roles</legend>
+        @Html.EditorFor(model => model.Positions)
+        <button data-bind="click: addPosition">Add one</button>
+        <button data-bind="click: removePosition">Remove one</button>
+    </fieldset>
+    <input type="Submit" value="save"/>
+}
+<script type="text/javascript">
+    
+    function createViewModel() {
+        
+        var createPosition = function () {
+            return {
+                companyName: ko.observable(),
+                jobTitle: ko.observable(),
+                startDate: ko.observable(),
+                endDate: ko.observable()
+            };
+        };
+        
+        var addPosition = function() {
+            positions.push(createPosition());
+        };
+
+        var removePosition = function() {
+            positions.pop();
+        };
+
+        var firstname = ko.observable();
+        var surname = ko.observable();
+        var positions = ko.observableArray([createPosition()]);
+
+        return {
+            firstname: firstname,
+            surname: surname,
+            positions: positions,
+            addPosition: addPosition,
+            removePosition: removePosition
+        };
+        
+    }
+
+    $(document).ready(function () {
+        var viewModel = createViewModel();
+        ko.applyBindings(viewModel);
+    });
+
+</script>
